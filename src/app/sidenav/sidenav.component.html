@@ -1,0 +1,31 @@
+<mat-drawer-container class="container" autosize>
+  <!--  Nav  -->
+
+  <mat-drawer mode="side" [opened]="isOpen">
+    <!--  Logo  -->
+    <div class="logo">Your Fitness Tracker</div>
+    <!--  Nav List  -->
+    <app-sidenav-list [links]="links"></app-sidenav-list>
+    <!--  Copyright   -->
+    <div class="copy">by Stepn1k</div>
+  </mat-drawer>
+
+  <!--  Sidenav Button  -->
+  <button class="menu-button" mat-icon-button type="button" (click)="isOpen = !isOpen">
+    <mat-icon>{{isOpen ? "menu_open" : "menu"}}</mat-icon>
+  </button>
+
+  <!--  Output Main Content  -->
+  <ng-content></ng-content>
+</mat-drawer-container>
+
+
+
+
+
+
+
+
+
+
+
