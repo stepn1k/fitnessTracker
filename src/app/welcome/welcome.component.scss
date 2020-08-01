@@ -1,0 +1,25 @@
+div {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  section {
+    margin-bottom: 0.9rem;
+
+    h1 {
+      text-align: center;
+      color: #e91e63;
+      text-transform: uppercase;
+      margin: 0.3rem;
+
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+
+}
+
