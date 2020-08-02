@@ -12,9 +12,10 @@ import {PastTrainingsComponent} from './training/past-trainings/past-trainings.c
 import {WelcomeComponent} from './welcome/welcome.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule} from '@angular/forms';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { SidenavListComponent } from './sidenav/sidenav-list/sidenav-list.component';
-import { SidenavItemComponent } from './sidenav/sidenav-list/sidenav-item/sidenav-item.component';
+import {SidenavComponent} from './sidenav/sidenav.component';
+import {SidenavListComponent} from './sidenav/sidenav-list/sidenav-list.component';
+import {SidenavItemComponent} from './sidenav/sidenav-list/sidenav-item/sidenav-item.component';
+import {StopTrainingComponent} from './training/current-training/stop-training.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SidenavItemComponent } from './sidenav/sidenav-list/sidenav-item/sidena
     SidenavComponent,
     SidenavListComponent,
     SidenavItemComponent,
+    StopTrainingComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import { SidenavItemComponent } from './sidenav/sidenav-list/sidenav-item/sidena
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [StopTrainingComponent]
 })
 export class AppModule {
 }

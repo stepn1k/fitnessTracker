@@ -1,1 +1,6 @@
-<p>current-training works!</p>
+<div class="progress-container">
+  <mat-spinner mode="determinate" color="primary" [value]="progress"></mat-spinner>
+  <p>Progress: {{progress}} %</p>
+  <p>Keep on going, you can do it!</p>
+  <button mat-raised-button type="button" (click)="onStop()">Stop</button>
+</div>
