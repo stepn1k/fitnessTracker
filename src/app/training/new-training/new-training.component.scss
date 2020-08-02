@@ -1,0 +1,24 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+
+  mat-card {
+    border: 3px solid #e91e63;
+    padding: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    mat-card-title {
+      margin-bottom: 1rem;
+    }
+
+    mat-card-content {
+      margin: 0;
+    }
+  }
+}
+
+
