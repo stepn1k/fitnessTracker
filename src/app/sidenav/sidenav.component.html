@@ -4,8 +4,41 @@
   <mat-drawer mode="side" [opened]="isOpen">
     <!--  Logo  -->
     <div class="logo">Fitness Tracker</div>
+
     <!--  Nav List  -->
-    <app-sidenav-list [links]="links"></app-sidenav-list>
+    <ul>
+      <app-sidenav-item
+        [matIcon]="'bookmark_border'"
+        [urlPath]="">
+        Main Page
+      </app-sidenav-item>
+      <app-sidenav-item
+        *ngIf="!isAuth"
+        [matIcon]="'assignment_ind'"
+        [urlPath]="'/sign-up'">
+        Sign Up
+      </app-sidenav-item>
+      <app-sidenav-item
+        *ngIf="!isAuth"
+        [matIcon]="'login'"
+        [urlPath]="'/login'">
+        Login
+      </app-sidenav-item>
+      <app-sidenav-item
+        *ngIf="isAuth"
+        [matIcon]="'fitness_center'"
+        [urlPath]="'/training'">
+        Training
+      </app-sidenav-item>
+      <app-sidenav-item
+        *ngIf="isAuth"
+        (click)="onLogout()"
+        [matIcon]="'undo'"
+        [urlPath]="'/login'">
+        Logout
+      </app-sidenav-item>
+    </ul>
+
     <!--  Copyright   -->
     <div class="copy">by Stepn1k</div>
   </mat-drawer>

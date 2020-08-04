@@ -1,45 +1,31 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AuthService} from '../auth/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, OnDestroy {
   isOpen = false;
+  public isAuth;
+  private authSubscription: Subscription;
 
-  links = [
-    {
-      label: 'Main Page',
-      matIcon: 'bookmark_border',
-      urlPath: ''
-    },
-    {
-      label: 'Sign Up',
-      matIcon: 'assignment_ind',
-      urlPath: '/auth'
-    },
-    {
-      label: 'Login',
-      matIcon: 'login',
-      urlPath: '/auth'
-    },
-    {
-      label: 'Training',
-      matIcon: 'fitness_center',
-      urlPath: '/training'
-    },
-    {
-      label: 'Logout',
-      matIcon: 'undo',
-      urlPath: '/auth'
-    }
-  ];
-
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.authSubscription = this.authService.authChange.subscribe(state => {
+      this.isAuth = state;
+    });
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
+  }
 }

@@ -28,8 +28,8 @@
       <mat-error *ngIf="password.hasError('required')">Field must not be empty!</mat-error>
       <mat-error *ngIf="!password.hasError('required')">Has to be at least 6 characters long!</mat-error>
     </mat-form-field>
-    <!--Datepicker-->
-    <mat-form-field appearance="fill" hideRequiredMarker>
+    <!--Datepicker // sign-up only-->
+    <mat-form-field appearance="fill" hideRequiredMarker *ngIf="!isLoginMode">
       <mat-label>Choose your date of birth</mat-label>
       <input
         matInput
@@ -43,17 +43,21 @@
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="date.hasError('required')">Field is Required</mat-error>
     </mat-form-field>
-    <!--Checkbox-->
-    <mat-checkbox color="primary" ngModel name="agree" required>
+    <!--Checkbox // sign-up only-->
+    <mat-checkbox color="primary" ngModel name="agree" required *ngIf="!isLoginMode">
       You agree with our terms and conditions
     </mat-checkbox>
     <!--Submit button-->
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      [disabled]="form.invalid">
-      Submit
-    </button>
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        {{isLoginMode ? "Login" : "Sign Up"}}
+      </button>
+      <button mat-raised-button color="basic" type="button"
+              (click)="onSwitchMode()"
+      >
+        Switch to {{isLoginMode ? "Sign Up" : "Login" }}
+      </button>
+    </div>
+
   </form>
 </section>

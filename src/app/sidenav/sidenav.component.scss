@@ -13,6 +13,14 @@ mat-drawer-container {
       background-color: #e91e63;
     }
 
+    // nav list
+    ul {
+      margin: 0;
+      padding: 0.8rem 0.6rem 0.3rem 0.7rem;
+      list-style: none;
+    }
+
+
     // copyright label
     .copy {
       font-size: 0.8rem;

@@ -22,4 +22,11 @@ form {
   mat-checkbox {
     margin-bottom: 1rem;
   }
+
+}
+
+.button-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

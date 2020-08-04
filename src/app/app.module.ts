@@ -13,8 +13,7 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule} from '@angular/forms';
 import {SidenavComponent} from './sidenav/sidenav.component';
-import {SidenavListComponent} from './sidenav/sidenav-list/sidenav-list.component';
-import {SidenavItemComponent} from './sidenav/sidenav-list/sidenav-item/sidenav-item.component';
+import {SidenavItemComponent} from './sidenav/sidenav-item/sidenav-item.component';
 import {StopTrainingComponent} from './training/current-training/stop-training.component';
 
 @NgModule({
@@ -27,7 +26,6 @@ import {StopTrainingComponent} from './training/current-training/stop-training.c
     PastTrainingsComponent,
     WelcomeComponent,
     SidenavComponent,
-    SidenavListComponent,
     SidenavItemComponent,
     StopTrainingComponent
   ],
