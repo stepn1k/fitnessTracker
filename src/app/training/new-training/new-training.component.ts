@@ -1,4 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TrainingService} from '../training.service';
+import {Exercise} from '../exercise.model';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-new-training',
@@ -6,17 +9,17 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./new-training.component.scss']
 })
 export class NewTrainingComponent implements OnInit {
+  public exercisesList: Exercise[];
 
-  @Output() trainingStart = new EventEmitter<void>();
-
-  constructor() {
+  constructor(private trainingService: TrainingService) {
   }
 
   ngOnInit(): void {
+    this.exercisesList = this.trainingService.getExercises();
   }
 
-  onTrainingStart() {
-    this.trainingStart.emit();
+  onTrainingStart(form: NgForm) {
+    this.trainingService.startExercise(form.value.exercise);
   }
 
 }

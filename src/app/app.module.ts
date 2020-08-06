@@ -34,7 +34,7 @@ import {StopTrainingComponent} from './training/current-training/stop-training.c
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
