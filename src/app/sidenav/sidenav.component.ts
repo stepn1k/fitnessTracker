@@ -28,4 +28,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
   }
+
+  menuToggle() {
+    this.isOpen = !this.isOpen;
+  }
+
 }

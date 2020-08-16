@@ -1,8 +1,11 @@
+@import "variables";
+@import "src/app/material/material-styles";
+
 html, body {
   height: 100%;
 }
 
 body {
   margin: 0;
-  background-color: #303030;
+  background-color: $background;
 }

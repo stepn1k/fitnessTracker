@@ -5,12 +5,12 @@
       <mat-card-title>Time to start a workout!</mat-card-title>
 
       <mat-card-content>
-        <mat-form-field>
+        <mat-form-field hideRequiredMarker>
           <!--Exercise list placeholder-->
           <mat-label>Choose exercise</mat-label>
 
           <!--Exercise list-->
-          <mat-select ngModel name="exercise">
+          <mat-select ngModel name="exercise" required>
             <mat-option
               *ngFor="let exercise of exercisesList"
               value="{{exercise.id}}">
@@ -23,7 +23,12 @@
 
       <mat-card-actions>
         <!--Start button-->
-        <button mat-raised-button color="primary" type="submit">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="f.invalid"
+        >
           Start
         </button>
       </mat-card-actions>

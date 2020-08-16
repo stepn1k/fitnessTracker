@@ -32,9 +32,9 @@ import {StopTrainingComponent} from './training/current-training/stop-training.c
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule,
     AppRoutingModule,
     FormsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent],

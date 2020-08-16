@@ -1,9 +1,11 @@
+@import "src/variables";
+
 .card-container {
   display: flex;
   justify-content: center;
 
   mat-card {
-    border: 3px solid #e91e63;
+    border: 3px solid $pink;
     padding: 2rem;
     margin-top: 2rem;
     display: flex;

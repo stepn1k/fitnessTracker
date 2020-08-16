@@ -17,9 +17,14 @@ export class TrainingService {
 
   private currentExercise: Exercise;
   public exerciseChanged = new Subject<Exercise>();
+  public exercises: Exercise[] = [];
 
   getExercises() {
     return this.availableExercises.slice();
+  }
+
+  getPastExercises() {
+    return this.exercises.slice();
   }
 
   startExercise(selectedId: string) {
@@ -30,6 +35,30 @@ export class TrainingService {
 
   getCurrentExercise() {
     return {...this.currentExercise};
+  }
+
+  cancelExercise(progress: number) {
+    this.exercises.push(
+      {
+        ...this.currentExercise,
+        date: new Date(),
+        duration: this.currentExercise.duration * (progress / 100),
+        calories: this.currentExercise.calories * (progress / 100),
+        state: 'cancelled'
+      }
+    );
+    this.currentExercise = null;
+    this.exerciseChanged.next(null);
+  }
+
+  completeExercise() {
+    this.exercises.push({
+      ...this.currentExercise,
+      date: new Date(),
+      state: 'completed'
+    });
+    this.currentExercise = null;
+    this.exerciseChanged.next(null);
   }
 
 }

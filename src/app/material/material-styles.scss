@@ -1,0 +1,17 @@
+//fix material issues
+.mat-tab-body-wrapper {
+  height: 80vh;
+}
+
+.mat-ink-bar {
+  display: none;
+}
+
+.mat-tab-label-active {
+  opacity: 1;
+  border-bottom: 2px solid $pink;
+}
+
+.mat-tab-label {
+  opacity: 1 !important;
+}
