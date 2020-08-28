@@ -1,51 +1,32 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AngularFireModule} from '@angular/fire';
 
 import {AppComponent} from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MaterialModule} from './material/material.module';
-import {AuthComponent} from './auth/auth.component';
-import {TrainingComponent} from './training/training.component';
-import {CurrentTrainingComponent} from './training/current-training/current-training.component';
-import {NewTrainingComponent} from './training/new-training/new-training.component';
-import {PastTrainingsComponent} from './training/past-trainings/past-trainings.component';
 import {WelcomeComponent} from './welcome/welcome.component';
 import {AppRoutingModule} from './app-routing.module';
-import {FormsModule} from '@angular/forms';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {SidenavItemComponent} from './sidenav/sidenav-item/sidenav-item.component';
-import {StopTrainingComponent} from './training/current-training/stop-training.component';
 import {environment} from '../environments/environment';
+import {AuthModule} from './auth/auth.module';
+import {SharedModule} from './shared/shared.module';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
-    TrainingComponent,
-    CurrentTrainingComponent,
-    NewTrainingComponent,
-    PastTrainingsComponent,
     WelcomeComponent,
     SidenavComponent,
-    SidenavItemComponent,
-    StopTrainingComponent
+    SidenavItemComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
-    FormsModule,
-    MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AuthModule,
+    SharedModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
