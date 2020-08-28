@@ -49,15 +49,21 @@
     </mat-checkbox>
     <!--Submit button-->
     <div class="button-group">
-      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      <button
+        *ngIf="!isLoading"
+        mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
         {{isLoginMode ? "Login" : "Sign Up"}}
       </button>
-      <button mat-raised-button color="basic" type="button"
-              (click)="onSwitchMode()"
+      <button
+        *ngIf="!isLoading"
+        mat-raised-button color="basic" type="button"
+        (click)="onSwitchMode()"
       >
         Switch to {{isLoginMode ? "Sign Up" : "Login" }}
       </button>
+      <mat-spinner *ngIf="isLoading" diameter="30"></mat-spinner>
     </div>
 
   </form>
+
 </section>
