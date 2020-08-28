@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "fitness-tracker-70e15": {
+      "hosting": {
+        "fitnessTrackerNgRx": [
+          "fitness-tracker-70e15"
+        ]
+      }
+    }
+  }
+}

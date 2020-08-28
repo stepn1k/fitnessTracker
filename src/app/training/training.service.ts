@@ -1,44 +1,67 @@
 import {Exercise} from './exercise.model';
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class TrainingService {
-  private availableExercises: Exercise[] = [
-    {id: 'jumpingjacks', name: 'Jumping Jacks', duration: 60, calories: 15},
-    {id: 'crunches', name: 'Crunches', duration: 60, calories: 23},
-    {id: 'squats', name: 'Squats', duration: 40, calories: 32},
-    {id: 'pushups', name: 'Pushups', duration: 60, calories: 21},
-    {id: 'highknees', name: 'Hign Knees', duration: 40, calories: 12},
-    {id: 'burpees', name: 'Burpees', duration: 30, calories: 8},
-    {id: 'lunges', name: 'Lunges', duration: 70, calories: 15},
-    {id: 'squatjumps', name: 'Squat Jumps', duration: 30, calories: 18},
-  ];
+  public userUid = null;
+  // List
+  private availableExercises: Exercise[] = [];
+  public exercisesChanged = new Subject<Exercise[]>();
+  public finishedExercisesChanged = new Subject<Exercise[]>();
+  private fbSub: Subscription[] = [];
 
   private currentExercise: Exercise;
   public exerciseChanged = new Subject<Exercise>();
-  public exercises: Exercise[] = [];
 
-  getExercises() {
-    return this.availableExercises.slice();
+  constructor(private firestore: AngularFirestore) {
   }
 
-  getPastExercises() {
-    return this.exercises.slice();
+  // fetch available exercises from firebase
+  fetchAvailableExercises() {
+    this.fbSub.push(this.firestore
+      .collection('availableExercises')
+      .snapshotChanges()
+      .pipe(map(docArray => {
+        return docArray.map(doc => {
+          const {name, duration, calories} = doc.payload.doc.data() as Exercise;
+          return {id: doc.payload.doc.id, name, duration, calories};
+        });
+      })).subscribe((exercises: Exercise[]) => {
+        this.availableExercises = exercises;
+        this.exercisesChanged.next([...this.availableExercises]);
+      }));
   }
 
-  startExercise(selectedId: string) {
-    this.currentExercise = this.availableExercises
-      .find(el => selectedId === el.id);
-    this.exerciseChanged.next(this.currentExercise);
+  // fetch finished exercises from firebase
+  fetchFinishedExercises() {
+    this.fbSub.push(this.firestore.collection('users')
+      .doc(`${this.userUid}`)
+      .collection('finishedExercises').valueChanges()
+      .pipe(map(docArray => {
+        return docArray.map((exercise) => {
+            // @ts-ignore
+            exercise.date = exercise.date.toDate(); // convert firebase date to usual date
+            return exercise;
+          }
+        );
+      })).subscribe(
+        (exercises: Exercise[]) => this.finishedExercisesChanged.next(exercises)
+      ));
   }
 
-  getCurrentExercise() {
-    return {...this.currentExercise};
+  // post to firebase
+  private addDataToDatabase(exercise: Exercise) {
+    this.firestore.collection('users')
+      .doc(`${this.userUid}`)
+      .collection('finishedExercises').add(exercise);
   }
 
+  // post as "canceled"
   cancelExercise(progress: number) {
-    this.exercises.push(
+    this.addDataToDatabase(
       {
         ...this.currentExercise,
         date: new Date(),
@@ -51,8 +74,9 @@ export class TrainingService {
     this.exerciseChanged.next(null);
   }
 
+  // post as "completed"
   completeExercise() {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.currentExercise,
       date: new Date(),
       state: 'completed'
@@ -60,5 +84,20 @@ export class TrainingService {
     this.currentExercise = null;
     this.exerciseChanged.next(null);
   }
+
+  cancelSubscriptions() {
+    this.fbSub.forEach(sub => sub.unsubscribe());
+  }
+
+  startExercise(selectedId: string) {
+    this.currentExercise = this.availableExercises
+      .find(el => selectedId === el.id);
+    this.exerciseChanged.next(this.currentExercise);
+  }
+
+  getCurrentExercise() {
+    return {...this.currentExercise};
+  }
+
 
 }

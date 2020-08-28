@@ -34,9 +34,7 @@ export class AuthComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
-
-    // sign-up mode
+        // sign-up mode
     if (!this.isLoginMode) {
       this.authService.registerUser({
         email: form.value.email,

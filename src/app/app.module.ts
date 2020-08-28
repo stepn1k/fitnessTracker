@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {AngularFireModule} from '@angular/fire';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -15,6 +16,9 @@ import {FormsModule} from '@angular/forms';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {SidenavItemComponent} from './sidenav/sidenav-item/sidenav-item.component';
 import {StopTrainingComponent} from './training/current-training/stop-training.component';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,10 @@ import {StopTrainingComponent} from './training/current-training/stop-training.c
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent],
