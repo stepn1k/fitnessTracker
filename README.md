@@ -11,6 +11,5 @@
 ![Table](https://github.com/stepn1k/fitnessTracker/blob/master/src/assets/images/promo_table.png)
 ![Start](https://github.com/stepn1k/fitnessTracker/blob/master/src/assets/images/promo_start.png)
 ![Stop](https://github.com/stepn1k/fitnessTracker/blob/master/src/assets/images/promo_stop.png)
-![Main](https://github.com/stepn1k/fitnessTracker/blob/master/src/assets/images/promo_description.png)
 
 
