@@ -1,36 +1,30 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth/auth.service';
-import {Subscription} from 'rxjs';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../app.reducer';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit, OnDestroy {
+export class SidenavComponent implements OnInit {
   isOpen = false;
-  public isAuth;
-  private authSubscription: Subscription;
+  public isAuth$: Observable<boolean>;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private store: Store<fromRoot.State>
+  ) {
   }
 
   ngOnInit(): void {
-    this.authSubscription = this.authService.authChange.subscribe(state => {
-      this.isAuth = state;
-    });
+    this.isAuth$ = this.store.select(fromRoot.getIsAuthenticated);
   }
 
   onLogout() {
     this.authService.logout();
-  }
-
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
-  }
-
-  menuToggle() {
-    this.isOpen = !this.isOpen;
   }
 
 }

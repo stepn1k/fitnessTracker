@@ -10,6 +10,10 @@ import {environment} from '../environments/environment';
 import {AuthModule} from './auth/auth.module';
 import {SharedModule} from './shared/shared.module';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {StoreModule} from '@ngrx/store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {reducers} from './app.reducer';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +27,12 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

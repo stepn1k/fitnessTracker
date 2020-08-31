@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from './auth.service';
-import {Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {UIService} from '../shared/ui.service';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../app.reducer';
 
 @Component({
   selector: 'app-auth',
@@ -12,8 +14,7 @@ import {UIService} from '../shared/ui.service';
 })
 export class AuthComponent implements OnInit {
   isLoginMode;
-  public isLoading = false;
-  public loadingSub: Subscription;
+  public isLoading$: Observable<boolean>;
 
   maxDate: Date;
 
@@ -21,13 +22,13 @@ export class AuthComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private uiService: UIService
+    private uiService: UIService,
+    private store: Store<fromRoot.State>
   ) {
   }
 
   ngOnInit(): void {
-    this.loadingSub = this.uiService.loadingStateChanged
-      .subscribe(isLoading => this.isLoading = isLoading);
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
 
     this.route.url.subscribe((url) => {
       // login or sign up mode

@@ -1,29 +1,28 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TrainingService} from '../training.service';
 import {NgForm} from '@angular/forms';
 import {Exercise} from '../exercise.model';
-import {Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
+import * as fromTraining from '../training.reducer';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-new-training',
   templateUrl: './new-training.component.html',
   styleUrls: ['./new-training.component.scss']
 })
-export class NewTrainingComponent implements OnInit, OnDestroy {
-  public exercisesList: Exercise[];
-  public exercisesSub: Subscription;
+export class NewTrainingComponent implements OnInit {
+  public exercisesList$: Observable<Exercise[]>;
 
-  constructor(private trainingService: TrainingService) {
+  constructor(
+    private trainingService: TrainingService,
+    public store: Store<fromTraining.State>
+  ) {
   }
 
   ngOnInit() {
     this.trainingService.fetchAvailableExercises();
-    this.exercisesSub = this.trainingService.exercisesChanged
-      .subscribe(exercises => (this.exercisesList = exercises));
-  }
-
-  ngOnDestroy() {
-    this.exercisesSub.unsubscribe();
+    this.exercisesList$ = this.store.select(fromTraining.getAvailableExercises);
   }
 
   onTrainingStart(form: NgForm) {

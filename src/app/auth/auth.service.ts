@@ -1,56 +1,55 @@
 import {AuthData} from './auth-data.model';
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {TrainingService} from '../training/training.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UIService} from '../shared/ui.service';
+import {Store} from '@ngrx/store';
+import * as UI from '../shared/ui.actions';
+import * as Auth from './auth.actions';
+import * as fromRoot from '../app.reducer';
 
 @Injectable({providedIn: 'root'})
 
 export class AuthService {
-  private isAuthenticated = false;
-  public authChange = new Subject<boolean>();
-
   constructor(
     private router: Router,
     private fireAuth: AngularFireAuth,
     private trainingService: TrainingService,
     private snackBar: MatSnackBar,
-    private uiService: UIService
+    private uiService: UIService,
+    private store: Store<fromRoot.State>
   ) {
   }
 
   initAuthListener() {
     this.fireAuth.authState.subscribe(user => {
       if (user) {
+        this.store.dispatch(new Auth.SetAuthenticated());
         this.trainingService.userUid = user.uid;
-        this.isAuthenticated = true;
-        this.authChange.next(true);
         this.router.navigate(['/training']);
       } else {
-        this.trainingService.cancelSubscriptions();
+        this.store.dispatch(new Auth.SetUnauthenticated());
         this.trainingService.userUid = null;
-        this.isAuthenticated = false;
-        this.authChange.next(false);
+        this.trainingService.cancelSubscriptions();
       }
     });
   }
 
 // TODO: create reusable method for authentication
   registerUser(authData: AuthData) {
-    this.uiService.loadingStateChanged.next(true);
+    this.store.dispatch(new UI.StartLoading());
     this.fireAuth
       .createUserWithEmailAndPassword(authData.email, authData.password)
-      .then(res => this.uiService.loadingStateChanged.next(false))
+      .then(res => this.store.dispatch(new UI.StopLoading()))
       .catch(err => this.errorHandling(err));
   }
 
   login(authData: AuthData) {
-    this.uiService.loadingStateChanged.next(true);
+    this.store.dispatch(new UI.StartLoading());
     this.fireAuth.signInWithEmailAndPassword(authData.email, authData.password)
-      .then(res => this.uiService.loadingStateChanged.next(false))
+      .then(res => this.store.dispatch(new UI.StopLoading()))
       .catch(err => this.errorHandling(err));
   }
 
@@ -58,12 +57,8 @@ export class AuthService {
     this.fireAuth.signOut();
   }
 
-  isAuth() {
-    return this.isAuthenticated;
-  }
-
   errorHandling(err) {
-    this.uiService.loadingStateChanged.next(false);
+    this.store.dispatch(new UI.StopLoading());
     this.uiService.showError(err.message, null, 3000);
   }
 }

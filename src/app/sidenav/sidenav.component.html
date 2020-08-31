@@ -13,25 +13,25 @@
         Main Page
       </app-sidenav-item>
       <app-sidenav-item
-        *ngIf="!isAuth"
+        *ngIf="!(isAuth$ | async)"
         [matIcon]="'assignment_ind'"
         [urlPath]="'/sign-up'">
         Sign Up
       </app-sidenav-item>
       <app-sidenav-item
-        *ngIf="!isAuth"
+        *ngIf="!(isAuth$ | async)"
         [matIcon]="'login'"
         [urlPath]="'/login'">
         Login
       </app-sidenav-item>
       <app-sidenav-item
-        *ngIf="isAuth"
+        *ngIf="isAuth$ | async"
         [matIcon]="'fitness_center'"
         [urlPath]="'/training'">
         Training
       </app-sidenav-item>
       <app-sidenav-item
-        *ngIf="isAuth"
+        *ngIf="isAuth$ | async"
         (click)="onLogout()"
         [matIcon]="'undo'"
         [urlPath]="'/login'">
@@ -44,7 +44,7 @@
   </mat-drawer>
 
   <!--  Sidenav Button  -->
-  <button class="menu-button" mat-icon-button type="button" (click)="menuToggle()">
+  <button class="menu-button" mat-icon-button type="button" (click)="isOpen = !isOpen">
     <mat-icon>{{isOpen ? "menu_open" : "menu"}}</mat-icon>
   </button>
 

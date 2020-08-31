@@ -9,6 +9,8 @@ import {PastTrainingsComponent} from './past-trainings/past-trainings.component'
 import {StopTrainingComponent} from './current-training/stop-training.component';
 import {TrainingRoutingModule} from './training-routing.module';
 import {AuthGuard} from '../auth/auth.guard';
+import {StoreModule} from '@ngrx/store';
+import {TrainingReducer} from './training.reducer';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import {AuthGuard} from '../auth/auth.guard';
     CommonModule,
     FormsModule,
     MaterialModule,
-    TrainingRoutingModule
+    TrainingRoutingModule,
+    StoreModule.forFeature('training', TrainingReducer)
   ],
   providers: [AuthGuard],
   entryComponents: [StopTrainingComponent]
