@@ -7,14 +7,14 @@
 * `ng serve` (for start Angular UI)
 
 
-![Auth](https://github.com/stepn1k/fitnessTracker/src/assets/images/promo_auth.png)
+![Auth](https://github.com/stepn1k/fitnessTracker/blob/master/src/assets/images/promo_auth.png)
 
-![Start](https://github.com/stepn1k/fitnessTracker/src/assets/images/promo_start.png)
+![Start](https://github.com/stepn1k/fitnessTracker/blob/master/src/assets/images/promo_start.png)
 
-![Stop](https://github.com/stepn1k/fitnessTracker/src/assets/images/promo_stop.png)
+![Stop](https://github.com/stepn1k/fitnessTracker/blob/master/src/assets/images/promo_stop.png)
 
-![Table](https://github.com/stepn1k/fitnessTracker/src/assets/images/promo_table.png)
+![Table](https://github.com/stepn1k/fitnessTracker/blob/master/src/assets/images/promo_table.png)
 
-![Main](https://github.com/stepn1k/fitnessTracker/src/assets/images/promo_description.png)
+![Main](https://github.com/stepn1k/fitnessTracker/blob/master/src/assets/images/promo_description.png)
 
 
